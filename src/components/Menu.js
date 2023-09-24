@@ -73,66 +73,58 @@ const data = [
         img: './images/item-9.jpeg',
         desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
-]
-
-
+];
 
 const Menu = () => {
-    let [dishes, setDishes] = useState(data);
+    const [menu, setMenu] = useState([]);
 
-    function handleCategories(e){
-        if(e.target.innerText==='All'){
-            setDishes(data);
-            return;
+    const handleClick = (e) => {
+        if (e.target.innerText === 'All') {
+            setMenu(data);
         }
-        if(e.target.innerText==='Breakfast'){
-            setDishes(data.filter(food=>(food.category==='breakfast')));
-            return;
+        else if (e.target.innerText === 'Breakfast') {
+            setMenu(data.filter((item) => (item.category === 'breakfast')))
         }
-        if(e.target.innerText==='Lunch'){
-            setDishes(data.filter(food=>(food.category==='lunch')));
-            return;
+        else if (e.target.innerText === 'Lunch') {
+            setMenu(data.filter((item) => (item.category === 'lunch')))
         }
-        if(e.target.innerText==='Shakes'){
-            setDishes(data.filter(food=>(food.category==='shakes')));
-            return;
+        else if (e.target.innerText === 'Shakes') {
+            setMenu(data.filter((item) => (item.category === 'shakes')))
         }
-
     }
-
     return (
         <div id="main">
             <h1>Our Menu</h1>
-            <p  onClick={handleCategories}>All</p>
-            <p id="filter-btn-1" onClick={handleCategories}>Breakfast</p>
-            <p id="filter-btn-2" onClick={handleCategories}>Lunch</p>
-            <p id="filter-btn-3" onClick={handleCategories}>Shakes</p>
+            <p onClick={handleClick}>All</p>
+            <p id="filter-btn-1" onClick={handleClick}>Breakfast</p>
+            <p id="filter-btn-2" onClick={handleClick}>Lunch</p>
+            <p id="filter-btn-3" onClick={handleClick}>Shakes</p>
 
             {
-                dishes.map(food=>(
-                    food.category=='shakes'?
-                    <div data-test-id="menu-item-shakes">
-                        <img src={food.img} alt={food.title}></img>
-                        <h2><span>{food.title}</span> <span>{food.price}</span></h2>
-                        <p>{food.desc}</p>
-                    </div>:
-                    food.category=='lunch'?
-                    <div data-test-id="menu-item-lunch">
-                        <img src={food.img} alt={food.title}></img>
-                        <h2><span>{food.title}</span> <span>{food.price}</span></h2>
-                        <p>{food.desc}</p>
-                    </div>:
-                    food.category=='breakfast'?
-                    <div data-test-id="menu-item-breakfast">
-                        <img src={food.img} alt={food.title}></img>
-                        <h2><span>{food.title}</span> <span>{food.price}</span></h2>
-                        <p>{food.desc}</p>
-                    </div>:
-                     <div>
-                     <img src={food.img} alt={food.title}></img>
-                     <h2><span>{food.title}</span> <span>{food.price}</span></h2>
-                     <p>{food.desc}</p>
-                 </div>
+                menu.map(item => (
+                    item.category == 'shakes' ?
+                        <div data-test-id="menu-item-shakes">
+                            <img src={item.img} alt={item.title}></img>
+                            <h2><span>{item.title}</span> <span>{item.price}</span></h2>
+                            <p>{item.desc}</p>
+                        </div> :
+                        item.category == 'lunch' ?
+                            <div data-test-id="menu-item-lunch">
+                                <img src={item.img} alt={item.title}></img>
+                                <h2><span>{item.title}</span> <span>{item.price}</span></h2>
+                                <p>{item.desc}</p>
+                            </div> :
+                            item.category == 'breakfast' ?
+                                <div data-test-id="menu-item-breakfast">
+                                    <img src={item.img} alt={item.title}></img>
+                                    <h2><span>{item.title}</span> <span>{item.price}</span></h2>
+                                    <p>{item.desc}</p>
+                                </div> :
+                                <div>
+                                    <img src={item.img} alt={item.title}></img>
+                                    <h2><span>{item.title}</span> <span>{item.price}</span></h2>
+                                    <p>{item.desc}</p>
+                                </div>
                 ))
             }
         </div>
